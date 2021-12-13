@@ -2,6 +2,53 @@
 
 Learn more about our <a href="https://www.videoexpertsgroup.com">Cloud Video Surveillance API</a>
 
+## How to use
+
+1) Create a channel on the Cloud
+```
+python .\admin_api_create_channel.py -serv_key v3.aaaaaaaaaaaaaaaa -channel_name TestTestTest
+```
+
+2) Set metadata
+```
+python .\admin_api_set_meta.py -serv_key v3.aaaaaaaaaaaaaaaa -id_channel 199415 -tag test -data testtesttest
+```
+
+3) Get metadata
+```
+python .\admin_api_get_meta.py -serv_key v3.aaaaaaaaaaaaaaaa -id_channel 199415
+```
+
+4) Get the list of events
+```
+python .\storage_api_get_events.py -access_token sdafasdfasdfasdfasdfasrwecsdcsdf= -start 2016-06-08T19:59:25 -end 2020-06-08T19:59:25 -limit 10
+```
+
+5) Start/Stop record:
+```
+python .\cameras_event_processing_events.py -access_token sdafasdfasdfasdfasdfasrwecsdcsdf= -ename motion -record_stat on
+```
+```
+python .\cameras_event_processing_events.py -access_token sdafasdfasdfasdfasdfasrwecsdcsdf= -ename motion -record_stat off
+```
+
+6) Get records:
+```
+python .\storage_api_get_records.py -access_token sdafasdfasdfasdfasdfasrwecsdcsdf= -start 2016-06-08T19:59:25 -end 2020-06-08T19:59:25 -limit 10
+```
+
+7) Create a channel on the Server:
+```
+python .\admin_api_create_channels.py -vxg_serv_address 10.10.10.23 -vxg_serv_key srv.aaaaaaaaaaaaaaaa -url rtsp://sadasd:sdasdsd5@10.20.16.58/axis-media/media.amp -id 6
+```
+
+8) Install Cloud key on the Server:
+```
+python .\install_vxg_cloud_key.py -vxg_serv_address 10.10.10.23 -vxg_serv_key srv.aaaaaaaaaaaaaaaa -vxg_cloud_key v3.bbbbbbbbbbbbbbbbb
+```
+
+
+
 ## Overview
 The API functions are divided in several sections. Interactive API reference (Swagger) can be found in the Docs & API section on the dashboard in corresponding API sections.
 
