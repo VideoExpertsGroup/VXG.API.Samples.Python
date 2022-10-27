@@ -3,7 +3,7 @@ import requests
 import sys
 import json
 
-def admin_api_register_server(cert, key, l_key, id):
+def get_server_info(cert, key, l_key, id):
     session = requests.Session()
     session.cert = (cert, key)
 
@@ -38,7 +38,7 @@ except IOError as msg:
 
 
 # Function call to send an HTTP request
-code, data = admin_api_register_server(param.path_to_cert, param.path_to_key, param.vxg_cloud_key, param.server_id)
+code, data = get_server_info(param.path_to_cert, param.path_to_key, param.vxg_cloud_key, param.server_id)
 
 
 # Convertion to json

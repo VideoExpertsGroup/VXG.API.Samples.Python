@@ -3,7 +3,7 @@ import requests
 import sys
 import json
 
-def admin_api_register_server(cert, key, id):
+def admin_api_unregister_server(cert, key, id):
     session = requests.Session()
     session.cert = (cert, key)
 
@@ -32,7 +32,7 @@ except IOError as msg:
 
 
 # Function call to send an HTTP request
-code, data = admin_api_register_server(param.path_to_cert, param.path_to_key, param.server_id)
+code, data = admin_api_unregister_server(param.path_to_cert, param.path_to_key, param.server_id)
 
 
 # Convertion to json
