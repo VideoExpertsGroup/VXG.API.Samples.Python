@@ -69,7 +69,7 @@ python .\servers_get_servers.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY" -l "LKey
 
 13) Get info of Server on Cloud (Non-admin)
 ```
-py .\servers_get_server_info.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY" -l "LKey AAAAAAAAAA" -id 123
+python .\servers_get_server_info.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY" -l "LKey AAAAAAAAAA" -id 123
 ```
 
 
