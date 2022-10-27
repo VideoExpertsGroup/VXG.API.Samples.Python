@@ -18,7 +18,7 @@ def add_channel(vxg_address, Lkey, url, id):
     # Exclusion block. If a request error occurs during the sending of the request (for example, the server is not available), the program displays the error status and terminates the execution.
     try:
         response = requests.post(address, headers=headers, data=data)
-        print response.text
+        print (response.text)
     except requests.exceptions.RequestException as e:
         print (e)
         sys.exit(1)

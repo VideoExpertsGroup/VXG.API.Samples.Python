@@ -44,6 +44,6 @@ except Exception:
 print ("Channel meta info:")
 try:
     for obj in data_json["objects"]:
-        print obj
+        print (obj)
 except Exception:
     print ("-------------")
