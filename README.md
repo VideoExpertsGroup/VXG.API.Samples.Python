@@ -47,6 +47,30 @@ python .\admin_api_create_channels.py -vxg_serv_address 10.10.10.23 -vxg_serv_ke
 python .\install_vxg_cloud_key.py -vxg_serv_address 10.10.10.23 -vxg_serv_key srv.aaaaaaaaaaaaaaaa -vxg_cloud_key v3.bbbbbbbbbbbbbbbbb
 ```
 
+9) Get list of CNVR Servers on the Cloud
+```
+python .\admin_api_get_servers.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY"
+```
+
+10) Register CNVR Server on the Cloud
+```
+python .\admin_api_register_server.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY" -uuid AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE -owner 12345
+```
+
+11) Unregister CNVR Server on the Cloud
+```
+python .\admin_api_unregister_server.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY" -id 123
+```
+
+12) Get list of Server on Cloud (Non-admin)
+```
+python .\servers_get_servers.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY" -l "LKey AAAAAAAAAA"
+```
+
+13) Get info of Server on Cloud (Non-admin)
+```
+py .\servers_get_server_info.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY" -l "LKey AAAAAAAAAA" -id 123
+```
 
 
 ## Overview
@@ -59,6 +83,14 @@ Retrieve usage statistics.
 Store/retrieve meta information.
 The API documentaion and an online testing tool can be found here: Admin API
 The API authorization is described here
+
+## Admin Server API
+Add/delete servers.
+Retrieve server list with server info.
+
+## Server API
+Retrieve server list with server info
+Retrieve server info for a specific server
 
 ## Channel API
 Get live video URLs.
