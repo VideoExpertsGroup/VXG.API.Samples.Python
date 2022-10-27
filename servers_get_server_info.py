@@ -9,7 +9,11 @@ def admin_api_register_server(cert, key, l_key, id):
 
     # API request
     api_url = 'https://web.skyvr.videoexpertsgroup.com:9000/api/v6/servers/' + id + '/'
-    headers = {'Authorization': l_key}
+    headers = {
+                'accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'LKey %s' % str(l_key),
+    }
     try:
         response = session.get(url=api_url, headers=headers, verify=False)
     except requests.exceptions.RequestException as e:
@@ -24,7 +28,7 @@ def admin_api_register_server(cert, key, l_key, id):
 parser = argparse.ArgumentParser()
 parser.add_argument('-cert', '--path_to_cert', help = 'Path to .crt file', required=True)
 parser.add_argument('-key', '--path_to_key',  help = 'Path to .key file', required=True)
-parser.add_argument('-l', '--l_key',  help = 'Cloud relay key applied in server settings', required=True)
+parser.add_argument('-vxg_cloud_key', '--vxg_cloud_key',  help = 'Cloud relay key applied in server settings', required=True)
 parser.add_argument('-id', '--server_id',  help = 'Server ID number', required=True)
 # Block responsible for checking the entered parameters. In case of an error, the status and description of use are returned
 try:
@@ -34,7 +38,7 @@ except IOError as msg:
 
 
 # Function call to send an HTTP request
-code, data = admin_api_register_server(param.path_to_cert, param.path_to_key, param.l_key, param.server_id)
+code, data = admin_api_register_server(param.path_to_cert, param.path_to_key, param.vxg_cloud_key, param.server_id)
 
 
 # Convertion to json
