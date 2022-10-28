@@ -62,14 +62,19 @@ python .\admin_api_register_server.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY" -u
 python .\admin_api_unregister_server.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY" -id 123
 ```
 
-12) Get list of Server on Cloud (Non-admin)
+12) Get list of Server on Cloud
 ```
-python .\servers_get_servers.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY" -vxg_cloud_key "v3.bbbbbbbbbbbbbbbbb"
+python .\servers_get_servers.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY" -vxg_cloud_key v3.bbbbbbbbbbbbbbbbb
 ```
 
-13) Get info of Server on Cloud (Non-admin)
+13) Get info of Server on Cloud
 ```
-python .\servers_get_server_info.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY" -vxg_cloud_key "v3.bbbbbbbbbbbbbbbbb" -id 123
+python .\servers_get_server_info.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY" -vxg_cloud_key v3.bbbbbbbbbbbbbbbbb -id 123
+```
+
+14) Get list of cameras on Server
+```
+python .\admin_api_get_channels_on_server.py -serv_backchannel https://.../backchannel/... -serv_key srv.aaaaaaaaaaaaaaaa
 ```
 
 
