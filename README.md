@@ -94,8 +94,8 @@ Add/delete servers.
 Retrieve server list with server info.
 
 ## Server API
-Retrieve server list with server info
-Retrieve server info for a specific server
+Retrieve server list with server info.
+Retrieve server info for a specific server.
 
 ## Channel API
 Get live video URLs.
