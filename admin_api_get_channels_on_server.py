@@ -52,8 +52,8 @@ print ('Request completed. HTTP status code: ' + str(code)+'\n')
 
 # Output response content
 try:
-    print('Number of cameras on server:' + data['meta']['total_count'] + '\n')
-    for channel in data['objects']:
+    print('Number of cameras on server: ' + str(data_json['meta']['total_count']) + '\n')
+    for channel in data_json['objects']:
         print('   Camera ID:   ' + str(channel['id']) + '\n')
         print('   Created:   ' + str(channel['created']) + '\n')
         print('   Name:   ' + channel['name'] + '\n')
