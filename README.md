@@ -74,7 +74,7 @@ python .\servers_get_server_info.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY" -vxg
 
 14) Get list of cameras on Server
 ```
-python .\admin_api_get_channels_on_server.py -serv_backchannel https://.../backchannel/... -serv_key srv.aaaaaaaaaaaaaaaa
+python .\admin_api_get_channels_on_server.py -serv_backchannel https://...:9004/backchannel/.../ -serv_key srv.aaaaaaaaaaaaaaaa
 ```
 
 
