@@ -65,6 +65,6 @@ except Exception:
 print ("Events:")
 try:
     for obj in data_json["objects"]:
-        print obj
+        print (obj)
 except Exception:
     print ("-------------")

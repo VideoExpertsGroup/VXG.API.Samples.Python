@@ -13,13 +13,13 @@ def admin_api_create_channel(serv_key, name):
     }
     data = '{ "name": "%s"}' % name # Name of the channel to create
 
-     # Exceptions bloack.
+     # Exceptions block.
     try:
         response = requests.post('https://web.skyvr.videoexpertsgroup.com:443/api/v3/channels/', headers=headers, data=data, timeout=15)
     except requests.exceptions.RequestException as e:
         print (e)
         sys.exit(1)
-    return response.status_code, response.text # he function returns the status of the HTTP request sending code and the returned data (access token, id)
+    return response.status_code, response.text # function returns the status of the HTTP request sending code and the returned data (access token, id)
 
 # Parsing program call arguments
 parser = argparse.ArgumentParser()
