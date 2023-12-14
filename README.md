@@ -77,6 +77,11 @@ python .\servers_get_server_info.py -cert "PATH_TO_CERT" -key "PATH_TO_KEY" -vxg
 python .\admin_api_get_channels_on_server.py -serv_backchannel https://...:9004/backchannel/.../ -serv_key srv.aaaaaaaaaaaaaaaa
 ```
 
+15) AI Integration Sample
+```
+python .\ai_integration.py
+```
+
 
 ## Overview
 The API functions are divided in several sections. Interactive API reference (Swagger) can be found in the Docs & API section on the dashboard in corresponding API sections.
