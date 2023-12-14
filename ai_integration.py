@@ -3,8 +3,8 @@ import requests
 import sys
 import json
 
+# Replace with your own cloud VMS API endpoint
 api_endpoint = 'web.vxgdemo.vxgdemo.cloud-vms.com'
-# co.01d7c12eeb714e074099
 
 '''
 List channels for a License Key
