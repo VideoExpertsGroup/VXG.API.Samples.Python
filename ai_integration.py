@@ -2,33 +2,31 @@ import argparse
 import requests
 import sys
 import json
+import datetime
 
 # Replace with your own cloud VMS API endpoint
 api_endpoint = 'web.vxgdemo.vxgdemo.cloud-vms.com'
 
 '''
-List channels for a License Key
-Create group channel
-Add channels to a group
-Retrieve channels from a group
-Retrieve Live URLs for all channels in a group
-Record metadata to a channel
+Options
+1. List channels for a License Key
+2. Create group channel
+3. Add channels to a group
+4. Retrieve channels from a group
+5. Retrieve Live URLs for all channels in a group
+6. Record metadata to a channel
 '''
-def build_url(endpoint, path, param=None):
-    if param:
-        return f'https://{endpoint}:443/{path}/{param}'
-    else:
-        return f'https://{endpoint}:443/{path}'
 
+'''
+Function uses v3 API to list all available channels associated with a cloud key.
+:param: lkey: string containing lkey for a user
+'''
 def list_channels_for_lkey(lkey):
-    # HTTP header. Indicates the MIME document type (json) as well as the authorization key
     headers = {
     'accept': 'application/json',
     'Authorization': 'LKey ' + lkey,
     }
-    path = 'api/v3/channels'
-    address = build_url(api_endpoint, path)
-    # Exceptions block.
+    address = f'https://{api_endpoint}/api/v3/channels'
     try:
         response = requests.get(address, headers=headers, timeout=15)
     except requests.exceptions.RequestException as e:
@@ -66,28 +64,33 @@ def list_channels_for_lkey(lkey):
         input('Press any key to continue...\n')
 
 
+'''
+Function uses v3 API to create a group channel and associate it with a cloud key.
+:param: lkey: string containing lkey for a user
+:param: name: string containing name for group channel
+'''
 def create_group_channel(lkey, name):
-    # HTTP header. Indicates the MIME document type (json) as well as the authorization key
     headers = {
         'accept': 'application/json',
         'Authorization': 'LKey ' + lkey,
     }
-    path = 'api/v3/channel_groups'
     data = {'name': name}
     address = f'https://{api_endpoint}/api/v3/channel_groups/'
-    # Exclusion block. If a request error occurs during the sending of the request (for example, the server is not available), the program displays the error status and terminates the execution.
     try:
         response = requests.post(address, headers=headers, json=data)
-        # print (response.text)
     except requests.exceptions.RequestException as e:
         print (e)
         sys.exit(1)
 
     code, data = response.status_code, response.text
 
-    # if code == 201:
-    print('Channel group successfully added.')
-    # Convertion to json
+    if code == 201:
+        print('Channel group successfully added.')
+    else:
+        print(f'Response code: {code}\nResponse message: {data}')
+        input('Press any key to continue...\n')
+        return
+    
     try:
         data_json = json.loads(data)
     except Exception:
@@ -103,18 +106,20 @@ def create_group_channel(lkey, name):
     input('Press any key to continue...\n')
 
 
+'''
+Function uses v3 API to get all channels in group channel, then adds new channel to group channel list.
+:param: lkey: string containing lkey for a user
+:param: group_id: group channel id to add channel to
+:param: channel_id: channel id to add to group channel
+'''
 def add_channel_to_group(lkey, group_id, channel_id):
-    # get channels from v5 channels list
-    # HTTP header. Indicates the MIME document type (json) as well as the authorization key
     headers = {
     'accept': 'application/json',
     'Authorization': 'LKey ' + lkey,
     }
 
-    # api/v3/channel_groups/
     address = f'https://{api_endpoint}/api/v3/channel_groups/{group_id}/'
 
-    # Exceptions block.
     try:
         response = requests.get(address, headers=headers, timeout=15)
     except requests.exceptions.RequestException as e:
@@ -128,7 +133,6 @@ def add_channel_to_group(lkey, group_id, channel_id):
         input('Press any key to continue...\n')
         return
     
-    # use json_data['object'] and build list of channel ids
     try:
         data_json = json.loads(data)
     except Exception:
@@ -151,17 +155,14 @@ def add_channel_to_group(lkey, group_id, channel_id):
     else:
         channel_ids.append(channel_id)
 
-    # use PUT v3 channel_groups/grpid/ and set data to {"channels": [list of channel ids]}
     headers = {
         'accept': 'application/json',
         'Authorization': 'LKey ' + lkey,
     }
     data = {"channels": channel_ids}
     address = f'https://{api_endpoint}/api/v3/channel_groups/{group_id}/'
-    # Exclusion block. If a request error occurs during the sending of the request (for example, the server is not available), the program displays the error status and terminates the execution.
     try:
         response = requests.put(address, headers=headers, json=data)
-        # print (response.text)
     except requests.exceptions.RequestException as e:
         print (e)
         sys.exit(1)
@@ -176,8 +177,11 @@ def add_channel_to_group(lkey, group_id, channel_id):
     input('Press any key to continue...\n')
 
 
+'''
+Function uses v5 API to get all channels and channel information from a group channel.
+:param: group_token: string containing access token for group channel
+'''
 def get_channels_from_group(group_token):
-    # HTTP header. Indicates the MIME document type (json) as well as the authorization key
     headers = {
     'accept': 'application/json',
     'Authorization': 'SI ' + group_token,
@@ -185,7 +189,6 @@ def get_channels_from_group(group_token):
 
     address = f'https://{api_endpoint}/api/v5/channels/'
 
-    # Exceptions block.
     try:
         response = requests.get(address, headers=headers, timeout=15)
     except requests.exceptions.RequestException as e:
@@ -194,10 +197,8 @@ def get_channels_from_group(group_token):
 
     code, data = response.status_code, response.text
 
-    # Status of the HTTP request
     print ('Request completed. HTTP status code: ' + str(code)+'\n')
 
-    # Convertion to json
     try:
         data_json = json.loads(data)
     except Exception:
@@ -220,19 +221,18 @@ def get_channels_from_group(group_token):
         print (data)
         input('Press any key to continue...\n')
 
+'''
+Function uses v5 API to get all channel token for a group channel, then gets rtmp urls for each channel
+:param: group_token: string containing access token for group channel
+'''
 def get_live_urls_for_channels_in_group(group_token):
-    # get channel ids
-    # get channels from v5 channels list
-    # HTTP header. Indicates the MIME document type (json) as well as the authorization key
     headers = {
     'accept': 'application/json',
     'Authorization': 'SI ' + group_token,
     }
 
-    # api/v3/channel_groups/
     address = f'https://{api_endpoint}/api/v5/channels/'
 
-    # Exceptions block.
     try:
         response = requests.get(address, headers=headers, timeout=15)
     except requests.exceptions.RequestException as e:
@@ -246,7 +246,6 @@ def get_live_urls_for_channels_in_group(group_token):
         input('Press any key to continue...\n')
         return
     
-    # use json_data['object'] and build list of channel ids
     try:
         data_json = json.loads(data)
     except Exception:
@@ -262,7 +261,6 @@ def get_live_urls_for_channels_in_group(group_token):
     for channel in data_json['objects']:
         channel_info.append((channel["id"], channel["token"]))
 
-    # use v4/live/source and if online return rtmp for each channel
     for channel in channel_info:
         # channel[0] is channel id
         # channel[1] is channel token
@@ -271,10 +269,8 @@ def get_live_urls_for_channels_in_group(group_token):
         'Authorization': 'Acc ' + channel[1],
         }
 
-        # api/v3/channel_groups/
         address = f'https://{api_endpoint}/api/v4/live/watch/'
 
-        # Exceptions block.
         try:
             response = requests.get(address, headers=headers, timeout=15)
         except requests.exceptions.RequestException as e:
@@ -283,7 +279,6 @@ def get_live_urls_for_channels_in_group(group_token):
 
         code, data = response.status_code, response.text
 
-        # Convertion to json
         try:
             data_json = json.loads(data)
         except Exception:
@@ -295,7 +290,32 @@ def get_live_urls_for_channels_in_group(group_token):
 
     input('Press any key to continue...\n')
 
+
+'''
+Function uses v4 API to add meta to a channel
+:param: token: string containing access token for channel
+:param: meta: list containing dictionary of metadata
+'''
 def record_metadata_to_channel(token, meta):
+    headers = {
+        'accept': 'application/json',
+        'Authorization': 'Acc ' + token,
+    }
+    data = meta
+    address = f'https://{api_endpoint}/api/v4/meta/'
+    try:
+        response = requests.post(address, headers=headers, json=data)
+    except requests.exceptions.RequestException as e:
+        print (e)
+        sys.exit(1)
+
+    code, data = response.status_code, response.text
+
+    if code == 200:
+        print(f'Meta was added to channel.')
+    else:
+        print(f'Response code: {code}\nResponse message: {data}')
+
     input('Press any key to continue...\n')
 
 def main():
@@ -343,7 +363,8 @@ def main():
             case 6:
                 print('Recording metadata to a channel')
                 ch_token = input('Enter channel access token: ')
-                meta = input('Enter metadata: ')
+                current_time = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%f")
+                meta = [{"timestamp": str(current_time), "long": {"people_count": 2}}]
                 record_metadata_to_channel(ch_token, meta)
             case 0:
                 print(f'Goodbye!')
