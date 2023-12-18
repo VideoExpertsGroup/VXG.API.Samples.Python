@@ -50,11 +50,7 @@ def list_channels_for_lkey(lkey):
             print(f'   created: {channel["created"]}')
             print(f'   name: {channel["name"]}')
             print(f'   recording mode: {channel["rec_mode"]}')
-            print(f'   created: {channel["created"]}')
-            print(f'   storage direct recording: {channel["storage_direct_recording"]}')
             print(f'   streaming: {channel["streaming"]}')
-            print(f'   timezone: {channel["timezone"]}')
-            print(f'   source url: {channel["source"]["url"]}')
             print(f'   access tokens:')
             print(f'        all: {channel["access_tokens"]["all"]}')
             print(f'        watch: {channel["access_tokens"]["watch"]}\n')
@@ -137,11 +133,6 @@ def add_channel_to_group(lkey, group_id, channel_id):
         data_json = json.loads(data)
     except Exception:
         pass
-
-    if len(data_json['channels']) == 0:
-        print('No channels associated with this group token.')
-        input('Press any key to continue...\n')
-        return
 
     channel_ids = []
     
