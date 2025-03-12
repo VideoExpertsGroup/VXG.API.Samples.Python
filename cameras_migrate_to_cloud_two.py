@@ -1,28 +1,7 @@
 import argparse
-import re
 import os
 import logging
-from urllib.parse import urlparse, urljoin
-from dataclasses import dataclass
-from typing import Any, Dict
-from enum import Enum
-
 import requests
-
-# python3 ./create_gateway_channels_from_csv.py --gateway_ip 3.80.125.65 --vms_url https://web.vxg-dev.vxg-dev.cloud-vms.com --uplink_url http://dev-api.proxy.cloud-vms.com/uplink_camera/ --license_key DINDON --csv_path ./example_csv/gateway_bulk_add.csv --gateway_id EC20A411-536F-C726-D3D2-D6AA818F14B8
-# def print_error(name: str, args: list, kwargs: dict, ex: Exception):
-#         logging.error("%s, args: %s, kwargs: %s. Error: %s", name, args, kwargs, ex)
-
-
-# def print_exc_error(func):
-#     def wrap_exception(*args, **kwargs):
-#         try:
-#             return func(*args, **kwargs)
-#         except Exception as ex:  # pylint: disable=broad-except
-#             print_error(name=func.__qualname__, args=args, kwargs=kwargs, ex=ex)
-#             return None, None
-
-#     return wrap_exception
 
 
 def get_co_headers(lkey: str) -> Dict[str, str]:
