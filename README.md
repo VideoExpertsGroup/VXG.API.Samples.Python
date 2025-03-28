@@ -82,6 +82,24 @@ python .\admin_api_get_channels_on_server.py -serv_backchannel https://...:9004/
 python .\ai_integration.py
 ```
 
+16) Add bulk list of cameras from CSV to Gateway
+```
+Command for Docker Gateway
+python ./create_gateway_channels_from_csv.py --email vxg@customer.com --password 1234 --csv ./example_csv/gateway_bulk_add.csv --endpoint api.cloudtwo-prod.vxgdemo.cloud-vms.com --guid 0000000000000000100000006025076DXX
+
+Command for Openwrt Gateway
+python ./create_gateway_channels_from_csv.py --email vxg@customer.com --password 1234 --csv ./gateway_bulk_add.csv --endpoint api.cloudtwo-prod.vxgdemo.cloud-vms.com --serial XXXXXXXXXX --mac 00:00:00:00:00:00
+```
+Example gateway_bulk_add.csv
+```
+gateway cam one,America/Toronto,192.168.0.2,admin,adminpass,80,554
+gateway cam two,America/Toronto,192.168.0.3,admin,adminpass,80,554
+gateway cam three,America/Toronto,192.168.0.4,admin,adminpass,80,554
+gateway cam four,America/Toronto,192.168.0.5,admin,adminpass,80,554
+gateway cam five,America/Toronto,192.168.0.6,admin,adminpass,80,554
+```
+
+
 
 ## Overview
 The API functions are divided in several sections. Interactive API reference (Swagger) can be found in the Docs & API section on the dashboard in corresponding API sections.
