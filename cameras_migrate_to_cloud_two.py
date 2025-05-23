@@ -4,7 +4,7 @@ import logging
 import requests
 
 
-def get_co_headers(lkey: str) -> Dict[str, str]:
+def get_co_headers(lkey: str) -> dict[str, str]:
     return {
         "accept": "application/json",
         "Authorization": f"LKey {lkey}",
@@ -12,7 +12,7 @@ def get_co_headers(lkey: str) -> Dict[str, str]:
     }
 
 
-def get_ct_headers(token) -> Dict[str, str]:
+def get_ct_headers(token) -> dict[str, str]:
     return {
         "accept": "application/json",
         "Authorization": f"Bearer {token}",
