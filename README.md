@@ -99,6 +99,11 @@ gateway cam four,America/Toronto,192.168.0.5,admin,adminpass,80,554
 gateway cam five,America/Toronto,192.168.0.6,admin,adminpass,80,554
 ```
 
+17) Download storage video for camera.
+```
+python ./download_storage_for_camera_id.py --camera_id 499 --start 2025-06-01T22:00:00 --end 2025-06-01T22:01:00 --endpoint web.vms.vxg-dev.cloud-vms.com --token SOMETOKEN
+```
+
 
 
 ## Overview
