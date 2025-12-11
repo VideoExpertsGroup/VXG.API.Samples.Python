@@ -104,6 +104,37 @@ gateway cam five,America/Toronto,192.168.0.6,admin,adminpass,80,554
 python ./download_storage_for_camera_id.py --camera_id 499 --start 2025-06-01T22:00:00 --end 2025-06-01T22:01:00 --endpoint web.vms.vxg-dev.cloud-vms.com --token SOMETOKEN
 ```
 
+18) Alert Listener Usage:
+Configure variables `host` and `password` in python file to match those of your ActiveMQ. Run python script to start listening for alerts. Note that the output queue needs to be enabled for the alert listener to work.
+```
+# Standard usage
+python3 ./alert_listener.py
+
+# Search for a specific camera
+python3 ./alert_listener.py --camera_id 9091
+
+# Search for a specific cameras
+python3 ./alert_listener.py --camera_id 9091,9091
+```
+Example output:
+```
+No camera IDs provided, listening to all cameras.
+No alert IDs provided, listening to all alerts.
+Listening for messages on topic '/topic/alarm-queue-ecs'.
+Setting up listener...
+Connecting to the broker...
+Subscribing to topic: /topic/alarm-queue-ecs
+Listening for messages...
+Received message:
+    Event ID: 57112786
+    Camera ID: 9091
+    Camera Name: Longse
+    Event Type: motion
+    Time: 2025-06-25T15:11:44.300170-05:00
+    Image: https://skyvr...
+    Alert Meta: {'llm_request': 'is there a car parked outside?', 'bedrock_model_id': 'us.anthropic.claude-3-5-sonnet-20241022-v2:0', 'bedrock_image_resolution': 'FHD', 'llm_response': True, 'llm_description': 'Yes, there are multiple cars parked in the parking lot outside the building, including several white vehicles and some darker colored vehicles.', 'exceptions': []}
+```
+
 
 
 ## Overview
