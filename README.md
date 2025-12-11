@@ -105,7 +105,7 @@ python ./download_storage_for_camera_id.py --camera_id 499 --start 2025-06-01T22
 ```
 
 18) Alert Listener Usage:
-Configure variables `` in python file. Run python script to start listening for alerts. Note that the output queue needs to be enabled for the alert listener to work.
+Configure variables `host` and `password` in python file to match those of your ActiveMQ. Run python script to start listening for alerts. Note that the output queue needs to be enabled for the alert listener to work.
 ```
 # Standard usage
 python3 ./alert_listener.py
